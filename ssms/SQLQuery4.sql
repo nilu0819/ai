@@ -253,5 +253,91 @@ having count(*)>10;
 -->having-> select specific gruop,condition applied after gruop by,use having caluse if condtion 
 --> contains aggregare functions
 
-
+-- 7/3/26
+--> display dept wise no of employees
+use company;
 select * from emp;
+
+select department,count(*) as cnt
+from emp
+where department in (HR,IT)
+group by department
+order by department 
+having count(*)>3
+
+--> no of orders placed by each customers in last 3months
+--> display only the customers placed more than 5 orders?
+
+select * from population;
+
+select cid,count(ordid) as no_of_orders
+from orders
+where orddt between dateadd(mm,-3,GETDATE()) and GETDATE()
+gruop by cid
+having count(ordid) > 5;
+
+--> creating the customers DB and tables
+CREATE DATABASE customers;
+GO
+
+USE customers;
+GO
+
+--> customers tables
+-- Customers table
+CREATE TABLE customers (
+    cid INT PRIMARY KEY,
+    cname VARCHAR(50),
+    city VARCHAR(50)
+);
+
+-- Orders table
+CREATE TABLE Orders (
+    ordid INT PRIMARY KEY,
+    cid INT FOREIGN KEY REFERENCES customers(cid),
+    orddt DATE
+);
+
+--> inserting the records in tables
+-- Insert Customers
+INSERT INTO customers (cid, cname, city) VALUES
+(1, 'Ravi Kumar', 'Hyderabad'),
+(2, 'Sneha Reddy', 'Bangalore'),
+(3, 'Arjun Mehta', 'Mumbai'),
+(4, 'Priya Sharma', 'Delhi'),
+(5, 'Vikram Singh', 'Chennai'),
+(6, 'Anita Rao', 'Pune'),
+(7, 'Rahul Verma', 'Kolkata'),
+(8, 'Neha Gupta', 'Jaipur'),
+(9, 'Kiran Das', 'Lucknow'),
+(10, 'Manoj Iyer', 'Coimbatore');
+
+-- Insert Orders (last 3 months)
+INSERT INTO Orders (ordid, cid, orddt) VALUES
+(101, 1, '2026-01-05'), (102, 1, '2026-01-15'), (103, 1, '2026-02-02'),
+(104, 1, '2026-02-20'), (105, 1, '2026-03-01'), (106, 1, '2026-03-05'),
+
+(107, 2, '2026-01-10'), (108, 2, '2026-02-14'), (109, 2, '2026-02-28'),
+(110, 2, '2026-03-02'), (111, 2, '2026-03-04'), (112, 2, '2026-03-06'),
+
+(113, 3, '2026-01-12'), (114, 3, '2026-02-01'), (115, 3, '2026-02-15'),
+(116, 3, '2026-02-25'), (117, 3, '2026-03-03'),
+
+(118, 4, '2026-01-08'), (119, 4, '2026-01-20'), (120, 4, '2026-02-10'),
+(121, 4, '2026-02-22'), (122, 4, '2026-03-01'), (123, 4, '2026-03-05'),
+
+(124, 5, '2026-01-05'), (125, 5, '2026-02-12'), (126, 5, '2026-02-18'),
+(127, 5, '2026-03-02'), (128, 5, '2026-03-04'), (129, 5, '2026-03-06');
+
+use customers;
+select * from Orders;
+
+--> calculatee dept wise and with in dept job wise total salary?
+use company;
+select * from emp;
+
+select department,job_role,sum(salary) as totalsal
+from emp
+group by department,job_role
+order by department ASC; --> show the salary in acending form
+
