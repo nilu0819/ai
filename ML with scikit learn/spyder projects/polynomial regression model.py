@@ -71,21 +71,37 @@ print("Polynomial model prediction (6.5):", poly_model_pred)
 
 #support vector regression
 
+# Import Support Vector Regression model from sklearn
 from sklearn.svm import SVR
-svr_reg=SVR(kernel='poly',degree=6,gamma='auto',C=3.0,coef0=2.0)
-svr_reg.fit(x,y)
+
+# Create SVR model with polynomial kernel of degree 6
+# gamma='auto' sets gamma = 1/n_features
+# C=3.0 controls regularization (higher C = stricter fit)
+# coef0=2.0 is used in polynomial kernel to adjust influence of higher-order terms
+svr_reg = SVR(kernel='poly', degree=6, gamma='auto', C=3.0, coef0=2.0)
+
+# Train the SVR model on training data (x = features, y = target)
+svr_reg.fit(x, y)
+
+# Predict the target value for input 6.5
+svr_reg = svr_reg.predict([[6.5]])
+print(svr_reg)   # Print SVR prediction
 
 
-svr_reg=svr_reg.predict([[6.5]])
-print(svr_reg)
-
-#knn model 
+# ---------------- KNN Regression ----------------
 from sklearn.neighbors import KNeighborsRegressor
-knn_reg=KNeighborsRegressor(p=2,n_neighbors=2,)
-knn_reg.fit(x,y)
 
-knn_reg=knn_reg.predict([[6.5]])
-print(knn_reg)
+# Create KNN regressor
+# n_neighbors=2 means prediction is based on 2 nearest neighbors
+# p=2 means distance metric is Euclidean (L2 norm)
+knn_reg = KNeighborsRegressor(p=2, n_neighbors=2)
+
+# Train the KNN model on training data
+knn_reg.fit(x, y)
+
+# Predict the target value for input 6.5
+knn_reg = knn_reg.predict([[6.5]])
+print(knn_reg)   # Print KNN prediction
 
 # tree algorithme model
 
