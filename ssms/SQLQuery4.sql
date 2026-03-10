@@ -341,3 +341,80 @@ from emp
 group by department,job_role
 order by department ASC; --> show the salary in acending form
 
+--> rollup -> is show the perticular group total also tells the grand total and is user difine
+
+select department,job_role,sum(salary) as totalsal
+from emp
+group by rollup(department,job_role)
+order by department asc,job_role;
+--> cube displayes subtotal fro each group by columns fro example -> departno,job and is user define
+
+select department,job_role,sum(salary) as totalsal
+from emp
+group by cube(department,job_role)
+order by department asc,job_role asc;
+
+--> display year wise and with in year quartile wise total sales and also display year wise subtotal?
+use customers;
+select * from Orders;
+
+-- select datepart(yy,[orddt]) as year,
+--    DATEPART(QQ,[orddt]) as qrt,
+--    sum(sale) as totalsalaes
+-- from Orders;
+-- group by rollup(datepart(yy,[orddt]),
+--               DATEPART(QQ,[orddt]))
+-- order by year asc ,qrt asc
+
+-- order of exicution 1.from 
+--                    2.group by
+--                    3.select
+--                    4.order by
+-- note-> columns alias cannot be used in group by clause beacause grouo by clause is exicuted before select
+-- columns alias can be used in orders by clause because order by is exicuted after select
+--> display state wiae and with in state gender wisr total no of person ?
+--> display state wise and gender wise subtotal
+
+-- {{selct state,count(*) as no_person
+-- from persons
+--group by cube(state ,gender)
+--order by state asc}}
+
+--> GROUPING SESTS:-> groupong sets clause allowd you to generate multile aggregate function within as sin
+select department,job_role,sum(salary) as totalsal
+from emp
+group by grouping sets((department,job_role),(department),(job_role),())
+order by department asc,job_role;
+
+--> summery:
+--1.importent of groupby
+--2.writing quaries using group by
+--3.where vs having
+--4.roll up and cube
+--5.grouping based on multiple columns
+--6.grouping sets
+
+--> (case statements):-
+--> case statements are use to impliments if -else in SQL quaries
+--> using case stamenents we can retuen values base on condition
+--> case statement are 2 rypes
+--1.simplae case
+--2.searched case
+
+--> simple case:- use simple case when conditon based on'='operator
+-- case columns:- syntex(when value1 than return expr1,when value2 then return expr2)
+use company;
+select * from emp;
+
+--> display ename job_role
+select ename,
+case job_role
+when 'Sales' then 'exicutive'
+when 'HR' then 'employee'
+when 'IT' then 'senior emp'
+else 'others'
+end as job
+from emp;
+
+--> serched case:- use searched case when cinditon not based on '=' operators
+-- searched case columns:- syntex(when conditon1 than return expr1,when cond2 then return expr2) else return expr end
