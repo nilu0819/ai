@@ -418,3 +418,102 @@ from emp;
 
 --> serched case:- use searched case when cinditon not based on '=' operators
 -- searched case columns:- syntex(when conditon1 than return expr1,when cond2 then return expr2) else return expr end
+
+-- display enmae salary salary range
+use company;
+select * from emp;
+
+select ename,salary,
+case
+when salary >30000 then 'high salary'
+when salary <30000 then 'low salary'
+else 'avg salary'
+end as salaryrange
+from emp;
+
+--display sno toal avg s=result?
+
+--SELECT sno, 
+  --               s1 + s2 + s3  as total,
+    --             (s1+s2+s3)/3 as avg,
+      --           CASE
+        --         WHEN  s1>=35 AND s2>=35 AND s3>=35 THEN 'pass'
+          --       ELSE  'fail'
+            --     END as result
+--  FROM student
+
+--[joins]
+-->  join is an operation  performed to display data from two or more table.				
+--> To display data from two tables join those two tables
+--> In DB  related data stored in multiple tables , To gather or to combine data stored in
+-->multiple tables we need to join those tables.
+
+-- types of joins
+
+ --1 Inner join
+ --        equi join
+ --        non equi join
+--         self join
+-- 2 Outer join
+  --        left join
+    --      right join
+      --    full join
+ --2  Cross / Cartesian join
+ 
+ -- Equi Join :-
+  -----------------
+
+-->  Equi join is performed between the tables sharing a common field
+-->  Name of the common field need not to be same
+-->  Common field datatype must be same
+-->  Equi join is performed based on the common field with same datatype
+
+  --   SELECT  columns
+    -- FROM  tab1  INNER JOIN  tab2
+    -- ON join condition--
+
+  --  join condition :-
+-- --------------------
+         
+--  =>  join condition specifies which record of 1st table joined with which record of 2nd table
+-- =>  based on the given join condition sql server joins the records of two table
+
+-- SELECT empno,ename,sal,dname,loc
+--      FROM emp INNER JOIN dept
+--      ON  emp.deptno = dept.deptno
+
+	 
+   -- NOTE :- 
+--> in join queries declare table alias and prefix column names with table alias for two reasons
+
+
+--       1  to avoid ambiguity
+--       2  for faster execution
+
+-- SELECT e.empno,e.ename,e.sal,
+--                     d.deptno,d.dname,d.loc
+--      FROM emp as e INNER JOIN dept as d
+--       ON  e.deptno = d.deptno 
+
+-->  display employee details with dept details working at NEW YORK loc ?
+
+  --       SELECT e.ename,d.dname,d.loc
+  --       FROM emp as e INNER JOIN dept as d
+  --       ON e.deptno = d.deptno              /*  join condition */ 
+  --       WHERE  d.loc = 'NEW YORK'   
+
+ -- joining more than two tables :-
+  -----------------------------------------
+
+-->   if no of tables increases no of join conditions also increases 
+-->  To join N tables N-1 join conditions required 
+
+--   SELECT columns
+--   FROM tab1 
+--   INNER JOIN tab2
+--   ON join cond1
+--   INNER JOIN tab3
+--  ON join cond2
+--   INNER JOIN tab4
+ -- ON join cond3
+  ---------------------
