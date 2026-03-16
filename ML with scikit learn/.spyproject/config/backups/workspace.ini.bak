@@ -4,7 +4,7 @@ save_data_on_exit = True
 save_history = True
 save_non_project_files = False
 project_type = 'empty-project-type'
-recent_files = ['spyder projects\\regression model\\random forest model.py', 'spyder projects\\regression model\\polynomial regression model.py', 'spyder projects\\regression model\\multiple linear regression model.py', 'spyder projects\\regression model\\decision tree model.py', 'spyder projects\\regression model\\data preprocesisng.py', 'spyder projects\\regression model\\k-nearest-neibour.py']
+recent_files = ['spyder projects\\classification model\\logistics regression model.py']
 
 [main]
 version = 0.2.0

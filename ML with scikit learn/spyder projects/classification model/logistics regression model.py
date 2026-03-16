@@ -154,3 +154,70 @@ plt.show()
 #lets see the graph we get good graph we have plotted for the test data point 
 #if you see the confustion matrix we saw 11 points are incorrectly predicted hear , you can count that 
 #we build our first classification model in python '''
+
+# Import necessary libraries
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import roc_auc_score, roc_curve
+import matplotlib.pyplot as plt
+
+# Load dataset from CSV file
+data = pd.read_csv(r"C:\Users\niles\Downloads\Future prediction1.csv")
+
+# Make a copy of the original dataset
+d2 = data.copy()
+
+# Select only columns at index 2 and 3 for modeling
+data = data.iloc[:, [2, 3]]
+
+# Standardize the selected features
+sc = StandardScaler()
+m = sc.fit_transform(data)
+
+# Create an empty DataFrame for predictions (not used later)
+y_pred1 = pd.DataFrame()
+
+# Add predictions from the classifier to the copied dataset
+d2['y_pred1'] = classifier.predict(m)
+
+# Save the updated dataset with predictions to a new CSV file
+d2.to_csv('final.csv')
+
+# Get predicted probabilities for the test set
+y_pred_prob = classifier.predict_proba(X_test)[:, 1]
+
+# Calculate the AUC score
+auc_score = roc_auc_score(y_test, y_pred_prob)
+print("AUC Score:", auc_score)
+
+# Compute ROC curve values
+fpr, tpr, thresholds = roc_curve(y_test, y_pred_prob)
+
+# Plot ROC curve
+plt.figure(figsize=(8,6))
+plt.plot(fpr, tpr, label=f'Logistic Regression (AUC = {auc_score:.2f})')
+plt.plot([0,1], [0,1], 'k--')  # Random classifier line
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve')
+plt.legend(loc='lower right')
+plt.grid()
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
