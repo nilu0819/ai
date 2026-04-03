@@ -51,3 +51,6 @@ plt.legend()
 plt.show()
 
 dataset['cluster'] = y_kmeans 
+
+import os
+print(os.path.exists(r"C:\Users\niles\Downloads\Mall_Customers.csv"))
